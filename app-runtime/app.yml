@@ -1,0 +1,37 @@
+# created-by: snowflake-apps-create; template=nextjs-template; skill-version=1.0.0
+version: 2
+
+name: ORDER_REVIEW_AR
+database: MY_DB
+schema: MY_SCHEMA
+query_warehouse: MY_WAREHOUSE
+
+label: "Order review"
+description: "Explore orders, flag an order with a reason, and review recent flags."
+icon: public/icon.svg
+
+runtime: node
+
+install:
+  commands:
+    - ["npm", "ci", "--include=dev"]
+
+build:
+  commands:
+    - ["npm", "run", "build"]
+    - ["cp", "-r", ".next/static", ".next/standalone/.next/static"]
+    - ["cp", "-r", "public", ".next/standalone/public"]
+    - ["rm", "-rf", "node_modules"]
+
+run:
+  command: ["node", ".next/standalone/server.js"]
+
+ignore:
+  - node_modules
+  - .env*
+  - __pycache__
+  - "*.pyc"
+  - .next
+  - .git
+  - snowflake.log
+  - app.yml.builder
